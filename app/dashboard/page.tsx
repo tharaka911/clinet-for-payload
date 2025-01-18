@@ -28,7 +28,7 @@ export default function Dashboard() {
       }
 
       const data = await res.json();
-      setUserData(data);
+      setUserData(data.user);
     } catch (error) {
       console.error("Error:", error);
     }
