@@ -29,8 +29,8 @@ export default function Home() {
 
       const result = await res.json();
       setResponse(result);
-      console.log(result);
-
+      console.log("check0");
+      
       if (res.ok) {
        
         router.push('/dashboard');
