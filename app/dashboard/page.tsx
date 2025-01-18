@@ -10,40 +10,28 @@ interface UserData {
   roles: string[];
 }
 
-const fetchUserData = async (): Promise<UserData | null> => {
-  try {
-    const res = await fetch(
-      "https://hrms-api-and-admin.vercel.app/api/users/me",
-      {
+export default function Dashboard() {
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  const handleFetchUserData = async () => {
+    try {
+      const res = await fetch("https://hrms-api-and-admin.vercel.app/api/users/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
       }
-    );
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      const data = await res.json();
+      setUserData(data);
+    } catch (error) {
+      console.error("Error:", error);
     }
-
-    console.log("check1");
-
-    return await res.json();
-
-    console.log("check2");
-  } catch (error) {
-    console.error("Error:", error);
-    return null;
-  }
-};
-
-export default function Dashboard() {
-  const [userData, setUserData] = useState<UserData | null>(null);
-
-  const handleFetchUserData = async () => {
-    const data = await fetchUserData();
-    setUserData(data);
   };
 
   return (
@@ -52,9 +40,7 @@ export default function Dashboard() {
       <button onClick={handleFetchUserData}>Fetch User Data</button>
       {userData ? (
         <div>
-          <p>
-            Welcome, {userData.firstName} {userData.lastName}!
-          </p>
+          <p>Welcome, {userData.firstName} {userData.lastName}!</p>
           <p>Email: {userData.email}</p>
         </div>
       ) : (
