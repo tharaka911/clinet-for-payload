@@ -1,11 +1,11 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
-import { useRouter } from 'next/router';
 import styles from "./page.module.css";
 
 export default function Home() {
-  const router = useRouter();
+   const router = useRouter();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -27,8 +27,9 @@ export default function Home() {
 
       await res.json();
       console.log("check0");
-
+      
       if (res.ok) {
+       
         router.push('/dashboard');
       }
     } catch (error) {
@@ -47,6 +48,7 @@ export default function Home() {
           <input type="password" id="password" name="password" required />
           <button type="submit">Sign In</button>
         </form>
+      
       </main>
     </div>
   );
