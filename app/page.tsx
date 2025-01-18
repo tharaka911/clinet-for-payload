@@ -1,12 +1,8 @@
-"use client";
-
-import { useRouter } from 'next/navigation';
-import { useState, FormEvent } from 'react';
-// import Cookies from 'js-cookie';
+import { FormEvent } from 'react';
+import { useRouter } from 'next/router';
 import styles from "./page.module.css";
 
 export default function Home() {
-  const [response, setResponse] = useState(null);
   const router = useRouter();
 
   const handleSubmit = async (event: FormEvent) => {
@@ -27,12 +23,10 @@ export default function Home() {
         body: JSON.stringify(data),
       });
 
-      const result = await res.json();
-      setResponse(result);
+      await res.json();
       console.log("check0");
-      
+
       if (res.ok) {
-       
         router.push('/dashboard');
       }
     } catch (error) {
