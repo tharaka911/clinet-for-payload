@@ -51,7 +51,6 @@ export default function Home() {
           <input type="password" id="password" name="password" required />
           <button type="submit">Sign In</button>
         </form>
-        {response && <div className={styles.response}>{JSON.stringify(response)}</div>}
       </main>
     </div>
   );
